@@ -1,0 +1,62 @@
+<app-title-bar></app-title-bar>
+<div class="middlePage">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Registration</h3>
+    </div>
+    <div class="panel-body">
+      <form novalidate class="form-horizontal" [formGroup]='signupForm' (ngSubmit)="registerUser()">
+        <div class="row">
+          <div class="form-group">
+            <div class="col-sm-8 col-sm-offset-2">
+              <input type="text" id="firstName" placeholder="First Name" class="line-input " autofocus formControlName="firstname">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <div class="col-sm-8 col-sm-offset-2">
+              <input type="text" id="lastName" placeholder="Last Name" class="line-input"  formControlName="lastname">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <div class="col-sm-8 col-sm-offset-2">
+              <input type="text" id="email" placeholder="Email address" class="line-input"  formControlName="email">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <div class="col-sm-8 col-sm-offset-2">
+              <input type="text" id="username" placeholder="Username" class="line-input"  formControlName="username">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <div class="col-sm-8 col-sm-offset-2">
+              <input type="password" id="password" placeholder="Password" class="line-input"  formControlName="password">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <div class="col-sm-8 col-sm-offset-2">
+              <input type="password" id="confirmPassword" placeholder="Confirm password" class="line-input"  formControlName="confirmPassword">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <div class="col-sm-7 ">
+              <button id="submitButton" type="submit" class="btn btn-info  pull-right">Sign In</button>
+\            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<app-title-bar></app-title-bar>
+<div class="middlePage">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Sign In</h3>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-5">
+          <a href="#" *ngFor="let image of loginImages"><img [src] = "image.name" width=200px/></a>
+        </div>
+
+        <div class="col-md-7">
+          <form novalidate class="form-horizontal" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div [ngClass]="{'has-error': usernameMessage }">
+              <input type="text" id="username" placeholder="Enter User Name" formControlName="username" class="form-control input-md">
+              <span class="help-block">
+                {{usernameMessage}}
+             </span>
+            </div>
+            <div class="spacing"><input type="checkbox" name="checkboxes" id="checkboxes-0" value="1"><small> Remember me</small></div>
+
+            <div [ngClass]="{'has-error': passwordMessage }">
+              <input type="password" class="form-control input-md" id="password" placeholder="Enter Password" formControlName="password">
+              <span class="help-block">
+                {{passwordMessage}}
+             </span>
+            </div>
+            <div class="spacing"><a href="#"><small> Forgot Password?</small></a><br/></div>
+            <button id="submitButton" type="submit" class="btn btn-info  pull-right">Sign In</button>
+            <div *ngIf="submitting">
+              <p class="message"> Signing in...</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
