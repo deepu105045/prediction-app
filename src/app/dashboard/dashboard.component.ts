@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FirebaseService } from '../services/firebase/firebase.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  fixtures:any;
 
-  constructor() { }
+  constructor(private firebaseService:FirebaseService) { }
 
   ngOnInit() {
   }

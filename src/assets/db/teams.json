@@ -1,0 +1,82 @@
+{
+  "2017": {
+    "ipl": {
+      "teams": {
+        "RCB": {
+          "name": "Royal Challengers Bangalore",
+          "win": 1,
+          "loss": 2,
+          "tie": 0
+        },
+        "KKR": {
+          "name": "Kolkata Knight Riders",
+          "win": 1,
+          "loss": 2,
+          "tie": 0
+        },
+        "MI": {
+          "name": "Mumbai Indians",
+          "win": 1,
+          "loss": 2,
+          "tie": 0
+        },
+        "CSK": {
+          "name": "Chennai Super Kings",
+          "win": 1,
+          "loss": 2,
+          "tie": 0
+        },
+        "SH": {
+          "name": "Sunrisers Hyderabad",
+          "win": 1,
+          "loss": 2,
+          "tie": 0
+        },
+        "KXIP": {
+          "name": "Kings XI Punjab",
+          "win": 1,
+          "loss": 2,
+          "tie": 0
+        },
+        "DD": {
+          "name": "Delhi Daredevils",
+          "win": 1,
+          "loss": 2,
+          "tie": 0
+        },
+        "RR": {
+          "name": "Rajasthan Royals",
+          "win": 1,
+          "loss": 2,
+          "tie": 0
+        }
+      },
+      "gameCalendar": {
+        "game1": {
+          "date": "1/2/2017",
+          "team1": "KKR",
+          "team2": "MI",
+          "result": "KKR"
+        },
+        "game2": {
+          "date": "1/2/2017",
+          "team1": "KKR",
+          "team2": "MI",
+          "result": "KKR"
+        },
+                "game3": {
+          "date": "1/2/2017",
+          "team1": "KKR",
+          "team2": "MI",
+          "result": "KKR"
+        },
+        "game4": {
+          "date": "1/2/2017",
+          "team1": "KKR",
+          "team2": "MI",
+          "result": "KKR"
+        }
+      }
+    }
+  }
+}

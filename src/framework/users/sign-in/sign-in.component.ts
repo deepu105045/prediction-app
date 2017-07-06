@@ -11,11 +11,12 @@ import { Router } from "@angular/router";
 })
 export class SigninComponent implements OnInit {
   loginForm: FormGroup;
-  loginImages;
+  socialLogins;
   passwordMessage: string;
   usernameMessage: string;
   errorMessage: string;
   submitting = false;
+  
   private validationMessage = {
     required: 'This is field is required.',
     pattern: 'please enter a valid email address.',
@@ -25,10 +26,10 @@ export class SigninComponent implements OnInit {
   constructor(private _fb: FormBuilder, private _userApi: UserApi, private router: Router) { }
 
   ngOnInit() {
-    this.loginImages = [
-      { name: 'assets/Sign-in-logos/sign-in-with-twitter.png', alt: 'twitter', link: 'http://www.twitter.com' },
-      { name: 'assets/Sign-in-logos/sign-in-with-google.png', alt: 'google', link: 'http://www.gmail.com' },
-      { name: 'assets/Sign-in-logos/sign-in-with-facebook.png', alt: 'facebook', link: 'http://www.facebook.com' }
+    this.socialLogins = [
+      { imagePath: 'assets/Sign-in-logos/sign-in-with-twitter.png', alt: 'twitter', link: 'http://www.twitter.com', clientName: 'twitter' },
+      { imagePath: 'assets/Sign-in-logos/sign-in-with-google.png', alt: 'google', link: 'http://www.gmail.com', clientName: 'google' },
+      { imagePath: 'assets/Sign-in-logos/sign-in-with-facebook.png', alt: 'facebook', link: 'http://www.facebook.com', clientName: 'facebook' }
     ];
 
     this.loginForm = this._fb.group({
@@ -61,19 +62,23 @@ export class SigninComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  login(clientName) {
     this.submitting = true;
     const username = this.loginForm.controls.username.value;
     const password = this.loginForm.controls.password.value;
 
-    this._userApi.signIn(username, password)
-      .subscribe((data) => {
-        console.log('Login status : ' + data);
-        this.router.navigate(['/authenticated/dashboard']);
-
+    if (clientName === 'google') {
+      this._userApi.login(username, password, 'google').subscribe((data) => {
+        console.log(data);
+      });
+    } else {
+      this._userApi.login(username, password, 'emailPassword').subscribe((data) => {
+        console.log("Authentication from framework service " + data);
       }, (err) => {
         this.submitting = false;
         console.log('Login Error : ' + err);
       });
+    }
   }
+
 }

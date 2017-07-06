@@ -1,0 +1,30 @@
+<div class="container table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Venue</th>
+        <th>Team 1</th>
+        <th>Team 2</th>
+        <th>Your Prediction</th>
+        <th>Actual results</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let gameLine of gameLines" class="success">
+        <td>{{gameLine.date}}</td>
+        <td>{{gameLine.venue}}</td>
+        <td>{{gameLine.team1}}</td>
+        <td>{{gameLine.team2}}</td>
+        <td>
+           <select>
+              <option>Select</option>
+              <option>{{gameLine.team1}}</option>
+              <option>{{gameLine.team2}}</option>
+           </select>
+        </td>
+        <td>{{gameLine.result}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

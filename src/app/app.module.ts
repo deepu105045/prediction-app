@@ -4,17 +4,25 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+
 import { appRoutes } from './routing/app.routing';
-import { FrameworkModule } from '../framework/framework.module';
-import { UserApi } from '../framework/users/user-api';
-
-import { UserService } from './services/user.service';
-import { AuthGuard} from  './services/auth-guard.service';
-
 import { AppComponent } from './app.component';
+import { FrameworkModule } from '../framework/framework.module';
 import { WelcomeCarouselComponent } from './welcome-carousel/welcome-carousel.component';
-import { AuthenticatedUserComponent } from './authenticated-user/authenticated-user.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+
+import { AuthenticatedUserComponent } from './authenticated-user/authenticated-user.component';
+import { UserService } from './services/user-service/user.service';
+import { UserApi } from '../framework/users/user-api';
+import { AuthGuard } from './services/auth-guard/auth-guard.service';
+
+import { AngularFireModule } from "angularfire2";
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { firebaseConfig } from "environments/firebase.config";
+import { FirebaseService } from './services/firebase/firebase.service';
+import { PredictionBoardComponent } from './prediction-board/prediction-board.component';
+
 
 @NgModule({
   declarations: [
@@ -22,6 +30,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     WelcomeCarouselComponent,
     AuthenticatedUserComponent,
     DashboardComponent,
+    PredictionBoardComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,10 +38,16 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HttpModule,
     FrameworkModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
+    
   ],
   providers: [
-    UserService,AuthGuard,
+    UserService,
+    AuthGuard,
+    FirebaseService,
     { provide: UserApi, useExisting: UserService }
   ],
   bootstrap: [AppComponent]

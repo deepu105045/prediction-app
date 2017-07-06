@@ -31,7 +31,7 @@ import { SignupComponent} from './users/signup/signup.component';
     FrameworkConfigService,
   ],
   exports: [
-    FrameworkBodyComponent
+    FrameworkBodyComponent,TitleBarComponent
   ]
 })
 export class FrameworkModule { }
