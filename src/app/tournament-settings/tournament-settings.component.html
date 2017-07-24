@@ -1,0 +1,88 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3">
+      <a href="#" class="nav-tabs-dropdown btn btn-block btn-primary">Settings</a>
+      <ul id="nav-tabs-wrapper" class="nav nav-tabs nav-pills nav-stacked well">
+        <li (click)="onSelect('Show Tournament')" class="active"><a data-toggle="tab">Show Tournaments</a></li>
+        <li (click)="onSelect('Show Teams')"><a data-toggle="tab">Show Teams</a></li>
+        <li (click)="onSelect('Create Tournament')"><a data-toggle="tab">Create Tournament</a></li>
+        <li (click)="onSelect('Create Teams')"><a data-toggle="tab">Create Teams</a></li>
+        <li (click)="onSelect('Link Tournament - Team')"><a data-toggle="tab">Link Tournament to team</a></li>
+      </ul>
+    </div>
+
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading">{{currentSelection}}</div>
+        <div class="panel-body">
+          <div [ngSwitch]="currentSelection">
+
+            <div *ngSwitchCase="'Show Tournament'">
+              <ul>
+                <li class="nav nav-tabs nav-pills nav-stacked well" *ngFor="let tournament of tournamentList">{{tournament.tournamentname}} </li>
+              </ul>
+            </div>
+
+            <div *ngSwitchCase="'Show Teams'">
+              <ul>
+                <li class="nav nav-tabs nav-pills nav-stacked well" *ngFor="let team of allTeams">{{team.teamName}} - {{team.displayName}} </li>
+              </ul>
+            </div>
+
+            <div *ngSwitchCase="'Create Tournament'">
+            </div>
+
+            <div *ngSwitchCase="'Create Teams'">
+              <form novalidate [formGroup]="teamForm">
+                <div class="form-group row">
+                  <div class="col-sm-4">
+                    <input class="form-control" type="text" placeholder="Kolkata Knight Riders" formControlName="teamName">
+                  </div>
+                  <div class="col-sm-4">
+                    <input class="form-control" type="text" placeholder="KKR" formControlName="displayName">
+                  </div>
+                  <div>
+                    <button class="btn btn-primary" type="button" (click)="createTeam()">Create Team</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+
+            <div *ngSwitchCase="'Link Tournament - Team'">
+              <div class="form-group">
+                <label for="tournament">Select a tournament</label>
+                <select class="form-control" name="tournament" [(ngModel)]="tournamentSelected">
+                       <option [value]=tournament.tournamentname *ngFor="let tournament of tournamentList" >{{tournament.tournamentname}}</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="teams">Select teams for tournament </label><br>
+                <div *ngFor="let team of allTeams">
+                  <div class="[ form-group ]">
+                    <input type="checkbox" name="fancy-checkbox-primary" id="fancy-checkbox-primary" autocomplete="off" />
+                    <div class="[ btn-group ]">
+                      <label for="fancy-checkbox-primary" class="[ btn btn-primary ]">
+                        <span class="[ glyphicon glyphicon-ok ]"></span>
+                        <span> </span>
+                       </label>
+                      <label for="fancy-checkbox-primary" class="[ btn btn-default active ]">
+                             {{team.displayName}}
+                    </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

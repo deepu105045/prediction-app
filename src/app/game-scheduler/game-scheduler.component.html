@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-sm-10 col-sm-offset-1">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        Game Scheduler
+      </div>
+      <div class="panel-body">
+        <div>
+          <form novalidate [formGroup]="gameCalendarForm" >
+            <div class="form-group row">
+              <div class="col-sm-2">
+                <input class="form-control" type="text" placeholder="Tournament Name" formControlName="tournamentName">
+              </div>
+
+              <div class="col-sm-2">
+                <input class="form-control" type="text" placeholder="Year" formControlName="year">
+              </div>
+
+              <div class="col-sm-2">
+                <input class="form-control" type="text" placeholder="sport" formControlName="sport">
+              </div>
+
+              <div class="col-sm-2">
+                <input class="form-control" type="text" placeholder="Game Format" formControlName="gameFormat">
+              </div>
+
+              <div class="col-sm-2">
+                <input class="form-control" type="text" value="5" placeholder="numberOfMatches" formControlName="numberOfMatches">
+              </div>
+
+              <div>
+                <button class="btn btn-primary" type="button" (click)="CreateSchedule()">Create</button>
+              </div>
+
+            </div>
+
+
+            <div *ngIf="showSchedule">
+              <hr>
+              <div formArrayName="gameLines" *ngFor="let gameLine of gameCalendarForm.controls.gameLines.controls;let i=index">
+                <div class="form-group row" [formGroupName]="i">
+                  <div class="col-sm-3">
+                    <input class="form-control" type="datetime-local" value="2017-08-19T13:45:00" formControlName="gameDateTime">
+                  </div>
+
+                  <div class="col-sm-2">
+                    <input class="form-control" type="text" id="venue" placeholder="Venue" formControlName="venue">
+                  </div>
+
+                  <div class="col-sm-5">
+                    <span>
+                      <app-ipl-team-dropdown (itemSelected)='setTeam1($event)' formControlName="team1" ></app-ipl-team-dropdown>
+                    </span>
+                    <span> v/s</span>
+                    <span>
+                      <app-ipl-team-dropdown (itemSelected)='setTeam2($event)' formControlName="team2"></app-ipl-team-dropdown>
+                    </span>
+                    <span (click)="removeGameLine(i)" > Remove</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-3 col-sm-offset-9">
+                  <a (click)="addGameLines(1)">Add another item</a>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary" type="button" (click)="saveSchedule()">Submit</button>
+            <button class="btn btn-primary" type="Cancel" >Cancel</button>
+            <div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

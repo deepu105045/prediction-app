@@ -36,6 +36,7 @@
     "express-validator": "*",
     "firebase": "^4.1.3",
     "jsonwebtoken": "*",
+    "lodash": "^4.17.4",
     "mongodb": "*",
     "mongoose": "*",
     "passport": "*",

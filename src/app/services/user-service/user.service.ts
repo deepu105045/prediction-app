@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { UserApi } from '../../../framework/users/user-api';
 import { Observable } from 'rxjs/Rx';
 import { Component } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { Router } from '@angular/router';
+
 import * as firebase from 'firebase/app';
-import { Router } from "@angular/router";
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Injectable()
 export class UserService implements UserApi {
@@ -12,27 +14,50 @@ export class UserService implements UserApi {
     isAuthenticated = false;
     user: Observable<firebase.User>;
     error: any;
-    constructor(public afAuth: AngularFireAuth, private router: Router) {
-        this.user = afAuth.authState;
+    constructor(public afAuth: AngularFireAuth,
+        private db: AngularFireDatabase,
+        private router: Router) {
+            this.user = afAuth.authState;
+               this.afAuth.auth.onAuthStateChanged((user) => {
+                if (user) {
+                    this.isAuthenticated = true;
+                }else {
+                    this.isAuthenticated = false;
+                }
+            });
     }
 
     isUserLoggedIn(): boolean {
         return this.isAuthenticated;
     }
 
-    createUser(username, password) {
-        this.afAuth.auth.createUserWithEmailAndPassword(username,password).then((data)=>{
-            console.log('User created successfuly.');
-        },((err)=>{
-            console.log("User creation error ");
+    getCurrentUser() {
+        return this.afAuth.auth.currentUser;
+    }
+
+    createUser(profile): Observable<any> {
+        const isNewUser = true;
+        this.afAuth.auth.createUserWithEmailAndPassword(profile.email, profile.password).then((data) => {
+            if (data.uid && isNewUser) {
+                this.db.database.ref('/users').child(data.uid).set({
+                    firstname: profile.firstname,
+                    lastName: profile.lastname,
+                    email: profile.email
+                });
+                this.isAuthenticated = true;
+                this.router.navigate(['/authenticated/prediction-board']);
+            }
+        }, ((err) => {
+            console.log('USER SERVICE :: User creation error ' + err);
         }));
-        return Observable.of({});
+        return this.afAuth.authState;
     }
 
 
     login(username, password, loginClient: String): Observable<any> {
         this.afAuth.auth.signInWithEmailAndPassword(username, password)
             .then((data) => {
+                console.log('User service :: login :: ', data.email);
                 this.isAuthenticated = true;
                 this.router.navigate(['/authenticated/dashboard']);
             }).catch((err) => {
@@ -49,27 +74,4 @@ export class UserService implements UserApi {
         });
         return this.afAuth.authState;
     }
-
-    // loginGoogle() {
-    //     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider)
-    //         .then((success) => {
-    //             this.isAuthenticated = true;
-    //             this.router.navigate(['/authenticated/dashboard']);
-    //         }).catch((err) => {
-    //             this.error = err;
-    //         });
-    //     return this.afAuth.authState;
-    // }
-
-    // loginFb() {
-    //     this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider)
-    //         .then((success) => {
-    //             this.isAuthenticated = true;
-    //             this.router.navigate(['/authenticated/dashboard']);
-    //         }).catch((err) => {
-    //             this.error = err;
-    //         });
-    //     return this.afAuth.authState;
-    // }
-
 }

@@ -1,0 +1,10 @@
+<span class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{selectedTeam}}
+   <span class="caret"></span>
+</button>
+<ul class="dropdown-menu dropdown-margin dropdown-width">
+  <li *ngFor="let team of teams">
+    <a (click)="setTeam(team.name)" tabindex="-1" >{{team.name}} - {{team.$key}}</a>
+  </li>
+</ul>
+</span>

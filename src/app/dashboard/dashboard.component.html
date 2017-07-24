@@ -1,6 +1,6 @@
-<h1> Dashboard </h1>
-<ul>
-  <li class="text" *ngFor="let fixture of fixtures ">
-    deepu
-  </li>
-</ul>
+<div class="row">
+  <div *ngFor="let tournament of tournamentList" (click)="onSelect(tournament.tournamentId)" class="btn btn:hover">
+            {{tournament.tournamentname}}
+            <img class="card-img-top " width="200" src="../assets/logo/ipl.svg"/>
+    </div>
+</div>
